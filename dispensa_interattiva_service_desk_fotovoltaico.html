@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dispensa Interattiva Completa — Service Desk IT & Fotovoltaico</title>
+  <style>
+    :root{
+      --bg1:#6c63ff; --bg2:#7b5cff; --nav:#24303a; --card:#f3f6fb; --muted:#6b7280; --accent:#4ecdc4; --glass: rgba(255,255,255,0.6);
+      --maxw:1100px; --radius:14px; --gap:16px;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,Segoe UI,Roboto,Arial; margin:0; color:#172022; background:linear-gradient(180deg,#f6f8fb 0%, #ffffff 100%);}
+    header.hero{background:linear-gradient(135deg,var(--bg1),var(--bg2)); color:#fff; padding:36px 20px 24px; border-bottom-left-radius:18px; border-bottom-right-radius:18px;}
+    .container{max-width:var(--maxw); margin:0 auto;}
+    .hero-inner{display:flex;align-items:center;gap:18px;}
+    .logo{width:54px;height:54px;border-radius:10px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:700}
+    .title{font-size:28px;font-weight:700;letter-spacing:0.2px}
+    .subtitle{opacity:0.9;margin-top:6px;font-size:13px}
+
+    nav.tabs{background:var(--nav); padding:12px 14px; border-radius:10px; margin-top:18px; display:flex; gap:10px; flex-wrap:wrap}
+    nav.tabs button{background:transparent;border:0;color:#fff;padding:10px 14px;border-radius:28px;cursor:pointer;font-weight:600}
+    nav.tabs button.active{background:rgba(255,255,255,0.12)}
+
+    main{padding:28px 12px;}
+    .card{background:linear-gradient(180deg,var(--card),#ffffff); border-radius:12px; padding:20px; box-shadow:0 6px 18px rgba(16,24,40,0.06); margin-bottom:18px}
+    h2{color:var(--bg1); margin:0 0 12px 0}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* checklist style */
+    .checklist{list-style:none;padding:0;margin:8px 0}
+    .checklist li{background:white;padding:12px;border-radius:8px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+    .chip{width:34px;height:34px;border-radius:8px;background:linear-gradient(180deg,var(--bg2),var(--bg1));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    /* two column layout */
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr} nav.tabs{justify-content:center}}
+
+    aside.side{position:sticky;top:20px}
+    .mini-card{background:#fff;border-radius:10px;padding:12px;font-size:14px}
+
+    /* accordion */
+    .accordion{border-radius:10px;overflow:hidden}
+    .accordion summary{list-style:none;padding:12px;border-radius:8px;background:rgba(16,24,40,0.03);cursor:pointer;font-weight:600}
+    .accordion div{padding:12px;background:#fff}
+
+    /* quiz */
+    .quiz .q{margin-bottom:12px}
+    .btn{display:inline-block;padding:9px 14px;border-radius:8px;border:0;cursor:pointer}
+    .btn.primary{background:var(--bg1);color:#fff}
+    .btn.ghost{background:transparent;border:1px solid rgba(16,24,40,0.06)}
+
+    footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small utilities */
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(16,24,40,0.04);font-size:13px}
+    .kb{font-size:13px;color:var(--muted)}
+
+    /* scrollbar for demo */
+    ::-webkit-scrollbar{width:10px;height:10px}
+    ::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.12);border-radius:8px}
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="logo">DS</div>
+        <div>
+          <div class="title">Dispensa Interattiva Completa</div>
+          <div class="subtitle">Operatore Service Desk IT & Supporto Fotovoltaico — Piano Intensivo 2 Giorni</div>
+        </div>
+      </div>
+
+      <nav class="tabs" id="mainTabs">
+        <button class="active" data-section="intro">🏠 Introduzione</button>
+        <button data-section="g1">💻 Giorno 1</button>
+        <button data-section="g2">⚡ Giorno 2</button>
+        <button data-section="mappe">🗺️ Mappe</button>
+        <button data-section="quiz">🎯 Quiz</button>
+        <button data-section="colloquio">💼 Colloquio</button>
+        <button data-section="glossario">📘 Glossario</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section id="content">
+
+        <article id="intro" class="card" style="display:block">
+          <h2>Benvenuto!</h2>
+          <p class="muted">Missione: prepararti per il colloquio come Operatore Service Desk IT con competenze fotovoltaico in 2 giorni. Usa le tab per navigare le sezioni. Il materiale è pensato per essere pratico e condivisibile via link.</p>
+
+          <div style="margin-top:18px">
+            <div class="card">
+              <h3 style="margin-top:0">Il tuo piano di studio</h3>
+              <ul class="checklist">
+                <li><div class="chip">✓</div><div><strong>Mattina (3h)</strong>: Ruolo Service Desk, Hardware, Software</div></li>
+                <li><div class="chip">✓</div><div><strong>Pomeriggio (3h)</strong>: Reti, Troubleshooting, Connettività</div></li>
+                <li><div class="chip">✓</div><div><strong>Sera (1-2h)</strong>: Ripasso con mappe mnemoniche e quiz</div></li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article id="g1" class="card" style="display:none">
+          <h2>Giorno 1 — Fondamenti IT e Supporto Utente</h2>
+          <p class="kb">Mattina: Ruolo, Hardware, Software, Troubleshooting. Pomeriggio: Reti, Configurazione dispositivi, Problemi comuni.</p>
+
+          <details class="accordion" open>
+            <summary>Ruolo e responsabilità dell'operatore Service Desk</summary>
+            <div>
+              <p class="muted">Primo punto di contatto, gestione ticket, documentazione, escalation e comunicazione con utenti non tecnici.</p>
+            </div>
+          </details>
+
+          <details class="accordion">
+            <summary>Concetti base di hardware</summary>
+            <div>
+              <ul>
+                <li><strong>CPU</strong> — cervello del PC</li>
+                <li><strong>RAM</strong> — memoria temporanea</li>
+                <li><strong>HDD/SSD</strong> — memoria permanente</li>
+                <li><strong>Periferiche</strong> — stampanti, monitor, webcam</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="accordion">
+            <summary>Troubleshooting: metodologia pratica</summary>
+            <div>
+              <ol>
+                <li>Raccogli informazioni</li>
+                <li>Verifiche fisiche (cavi, alimentazione)</li>
+                <li>Restart e power-cycle</li>
+                <li>Test remoto e documentazione</li>
+              </ol>
+            </div>
+          </details>
+        </article>
+
+        <article id="g2" class="card" style="display:none">
+          <h2>Giorno 2 — Elettrotecnica e Fotovoltaico</h2>
+          <p class="kb">Mattina: Legge di Ohm, AC vs DC, componenti di sicurezza. Pomeriggio: impianto fotovoltaico, inverter, MPPT, monitoraggio.</p>
+
+          <details class="accordion" open>
+            <summary>Concetti fondamentali: Tensione, Corrente, Resistenza</summary>
+            <div>
+              <p>Tensione (V), Corrente (A), Resistenza (Ω). Legge di Ohm: V = R × I</p>
+            </div>
+          </details>
+
+          <details class="accordion">
+            <summary>Fotovoltaico — Schema di funzionamento</summary>
+            <div>
+              <p>Pannelli → DC → Inverter → AC casa/batteria/rete. MPPT ottimizza produzione. Contatori bidirezionali misurano flussi.</p>
+            </div>
+          </details>
+
+          <details class="accordion">
+            <summary>Sicurezza elettrica — Regole pratiche</summary>
+            <div>
+              <ul>
+                <li>Non lavorare sotto tensione</li>
+                <li>Usare tester e guanti isolanti</li>
+                <li>Segnalare e isolare guasti prima di intervenire</li>
+              </ul>
+            </div>
+          </details>
+        </article>
+
+        <article id="mappe" class="card" style="display:none">
+          <h2>Mappe e Schemi Mnemonici</h2>
+          <p class="muted">Mappe visive per ripasso rapido: hardware, rete, fotovoltaico. Scarica la mappa in PDF dalla sezione risorse (o stampa direttamente dal browser).</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+            <div class="mini-card">Hardware in 1 minuto — CPU, RAM, HDD/SSD, Periferiche</div>
+            <div class="mini-card">Reti in 1 minuto — LAN, Wi‑Fi, Router, IP statico/dinamico</div>
+            <div class="mini-card">Fotovoltaico in 1 minuto — Pannelli, Inverter, Batterie, MPPT</div>
+          </div>
+        </article>
+
+        <article id="quiz" class="card" style="display:none">
+          <h2>Quiz Rapido — Autovalutazione</h2>
+          <div class="quiz">
+            <div class="q">
+              <div><strong>1.</strong> Che cosa converte un inverter?</div>
+              <div style="margin-top:8px">
+                <button class="btn ghost" data-correct="false" onclick="answer(this)">AC → DC</button>
+                <button class="btn ghost" data-correct="true" onclick="answer(this)">DC → AC</button>
+                <button class="btn ghost" data-correct="false" onclick="answer(this)">Tensione → Resistenza</button>
+              </div>
+            </div>
+
+            <div class="q">
+              <div><strong>2.</strong> Legge di Ohm: V = ?</div>
+              <div style="margin-top:8px">
+                <button class="btn ghost" data-correct="false" onclick="answer(this)">V = I / R</button>
+                <button class="btn ghost" data-correct="true" onclick="answer(this)">V = R × I</button>
+                <button class="btn ghost" data-correct="false" onclick="answer(this)">V = R + I</button>
+              </div>
+            </div>
+
+            <div style="margin-top:12px"><button class="btn primary" onclick="resetQuiz()">Reset quiz</button></div>
+          </div>
+        </article>
+
+        <article id="colloquio" class="card" style="display:none">
+          <h2>Simulazioni Colloquio</h2>
+          <p class="muted">Domande tipiche e risposte strutturate, oltre a checklist e suggerimenti comportamentali.</p>
+          <details class="accordion" open>
+            <summary>Domanda 1 — Come configureresti un PC per un nuovo utente?</summary>
+            <div>
+              <p>Procedura standard: verifica hardware, creazione utente, configurazione rete, installazione software essenziali, aggiornamenti, test finale, documentazione.</p>
+            </div>
+          </details>
+
+          <details class="accordion">
+            <summary>Domanda 2 — Come gestisci un utente arrabbiato?</summary>
+            <div>
+              <ol>
+                <li>Empatia e de-escalation</li>
+                <li>Raccogliere informazioni</li>
+                <li>Azioni immediate e comunicazione chiara</li>
+              </ol>
+            </div>
+          </details>
+        </article>
+
+        <article id="glossario" class="card" style="display:none">
+          <h2>Glossario Rapido</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="mini-card"><strong>IP</strong><div class="muted">Indirizzo univoco dispositivo in rete</div></div>
+            <div class="mini-card"><strong>MPPT</strong><div class="muted">Maximum Power Point Tracking, ottimizzazione pannelli</div></div>
+            <div class="mini-card"><strong>Inverter</strong><div class="muted">Convertitore DC → AC</div></div>
+            <div class="mini-card"><strong>BMS</strong><div class="muted">Battery Management System</div></div>
+          </div>
+        </article>
+
+      </section>
+
+      <aside class="side">
+        <div class="mini-card card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div><strong>Tempo stimato</strong><div class="muted">2 giorni intensivi</div></div>
+            <div class="tag">Ready-to-use</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn" onclick="printPage()">Stampa / Salva PDF</button>
+            <button class="btn" onclick="downloadHTML()">Scarica HTML</button>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+
+        <div class="mini-card">
+          <strong>Risorse</strong>
+          <ul style="padding-left:18px;margin:8px 0">
+            <li class="muted">ENEA — Fotovoltaico</li>
+            <li class="muted">GSE — Scambio sul posto</li>
+            <li class="muted">HTML.it — Guide IT</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="card" style="text-align:center;margin-top:18px">
+      <div class="muted">Creato per te — pronto da condividere. Per personalizzazioni (logo, colori, aggiunta quiz o mappe SVG) richiedi modifica.</div>
+    </footer>
+  </main>
+
+  <script>
+    // Tabs navigation
+    document.querySelectorAll('#mainTabs button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('#mainTabs button').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const sec = btn.dataset.section;
+        document.querySelectorAll('main article').forEach(a=>a.style.display='none');
+        const target = document.getElementById(sec);
+        if(target) target.style.display='block';
+        window.location.hash = sec;
+      })
+    });
+
+    // Load hash if present
+    (function(){
+      const h = location.hash.replace('#','');
+      if(h){
+        const b = document.querySelector('#mainTabs button[data-section="'+h+'"]');
+        if(b) b.click();
+      }
+    })();
+
+    // Simple quiz answer handler
+    function answer(el){
+      const ok = el.dataset.correct === 'true';
+      el.style.borderColor = ok ? 'rgba(46, 204, 113, 0.9)' : 'rgba(255,99,71,0.9)';
+      el.style.background = ok ? 'rgba(46, 204, 113, 0.1)' : 'rgba(255,99,71,0.06)';
+    }
+    function resetQuiz(){
+      document.querySelectorAll('.quiz .btn.ghost').forEach(b=>{b.style.borderColor='';b.style.background='';});
+    }
+
+    // Print and download helpers
+    function printPage(){ window.print(); }
+
+    function downloadHTML(){
+      const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html],{type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'dispensa_interattiva.html'; document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
