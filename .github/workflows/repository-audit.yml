@@ -1,0 +1,104 @@
+name: Repository audit
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Reject obvious secret material
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInE --exclude-dir=.git --exclude='repository-audit.yml'             '(-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16})' .; then
+            echo "::error::Potential credential material detected."
+            exit 1
+          fi
+
+      - name: Validate static HTML structure
+        shell: python
+        run: |
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import sys
+
+          class Validator(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.ids = set()
+                  self.duplicates = set()
+                  self.sections = set()
+                  self.targets = set()
+                  self.lang = None
+                  self.viewport = False
+
+              def handle_starttag(self, tag, attrs):
+                  values = dict(attrs)
+                  if tag == "html":
+                      self.lang = values.get("lang")
+                  if tag == "meta" and values.get("name", "").lower() == "viewport":
+                      self.viewport = True
+                  identifier = values.get("id")
+                  if identifier:
+                      if identifier in self.ids:
+                          self.duplicates.add(identifier)
+                      self.ids.add(identifier)
+                      if tag == "article":
+                          self.sections.add(identifier)
+                  target = values.get("data-section")
+                  if target:
+                      self.targets.add(target)
+
+          failures = []
+          html_files = sorted(Path(".").glob("*.html"))
+          if not html_files:
+              failures.append("No root HTML file found.")
+
+          for path in html_files:
+              parser = Validator()
+              try:
+                  parser.feed(path.read_text(encoding="utf-8"))
+                  parser.close()
+              except Exception as exc:
+                  failures.append(f"{path}: parse failure: {exc}")
+                  continue
+              if parser.lang != "it":
+                  failures.append(f"{path}: expected html lang=it.")
+              if not parser.viewport:
+                  failures.append(f"{path}: viewport metadata missing.")
+              if parser.duplicates:
+                  failures.append(f"{path}: duplicate ids: {sorted(parser.duplicates)}")
+              missing = parser.targets - parser.sections
+              if missing:
+                  failures.append(f"{path}: navigation targets without articles: {sorted(missing)}")
+
+          if failures:
+              print("\n".join(failures), file=sys.stderr)
+              raise SystemExit(1)
+          print(f"Validated {len(html_files)} HTML file(s).")
+
+      - name: Verify agent policy files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s AGENTS.md
+          test -s CLAUDE.md
+          test -s SECURITY.md
+          grep -Fq '@AGENTS.md' CLAUDE.md
